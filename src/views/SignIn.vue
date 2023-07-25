@@ -8,7 +8,7 @@
               <div class="mt-8 card card-plain">
                 <div class="pb-0 card-header text-start">
                   <h3 class="font-weight-bolder text-success text-gradient">
-                    Chorva Klaster
+                    MTP MCHJ
                   </h3>
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
@@ -45,22 +45,16 @@
                     </div>
                   </form>
                 </div>
-                <div class="px-1 pt-0 text-center card-footer px-lg-2">
-                </div>
-                <div class="px-1 pt-0 text-center card-footer px-lg-2">
-                </div>
-                <div class="px-1 pt-0 text-center card-footer px-lg-2">
-                </div>
               </div>
             </div>
             <div class="col-md-6">
-              <div class="top-0 oblique position-absolute h-100 d-md-block d-none me-n8">
+              <div class="top-0 oblique position-absolute h-100 d-md-block d-none">
                 <div
                   class="bg-cover oblique-image position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
                   :style="{
                     backgroundImage:
                       'url(' +
-                      require('@/assets/img/curved-images/sigir.jpg') +
+                      require('@/assets/img/curved-images/tractor-field.jpg') +
                       ')',
                   }"
                 ></div>
@@ -115,7 +109,7 @@ export default {
     authentication() {
       if (this.loginVM.username !== "" && this.loginVM.password !== "") {
         console.log(this.loginVM.login);
-        axios.post('http://localhost:6060/api/auth/login', this.loginVM, {
+        axios.post('http://localhost:3030/api/auth/login', this.loginVM, {
           headers: {
             'Content-type': 'application/json',
             "Access-Control-Allow-Origin": "*",
@@ -135,6 +129,7 @@ export default {
               duration: 2
             });
             const token = res.data.data.accessToken;
+            console.log(token)
             router.push("/documents");
 
             if (this.rememberMe) {

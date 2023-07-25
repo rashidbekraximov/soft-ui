@@ -11,8 +11,8 @@
         id="iconSidenav"
       ></i>
       <a class="m-0 navbar-brand" href="/">
-        <img :src="logo" class="navbar-brand-img h-100" alt="main_logo" />
-        <span class="ms-1 font-weight-bold">Soft UI Dashboard PRO</span>
+        <img :src="logo" class="navbar-brand-img h-100 mx-2" width="70" height="90" alt="main_logo" />
+        <span class="ms-1 font-weight-bold mx-4">MTP MCHJ</span>
       </a>
     </div>
     <hr class="mt-0 horizontal dark" />

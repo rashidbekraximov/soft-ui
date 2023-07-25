@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  name: "sidenav-collapse",
+  name: "sidenav-collapse show",
   props: {
     to: {
       type: [Object, String],
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      isExpanded: false,
+      isExpanded: true,
     };
   },
 };

@@ -4,7 +4,7 @@
     class="shadow-none card card-background card-background-mask-secondary"
   >
     <div
-      class="full-background"
+      class="full-background "
       :style="{ 'background-image': 'url(' + imgWhiteCurved + ')' }"
     ></div>
     <div class="p-3 card-body text-start w-100">

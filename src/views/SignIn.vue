@@ -45,6 +45,10 @@
                     </div>
                   </form>
                 </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                </div>
               </div>
             </div>
             <div class="col-md-6">
@@ -75,6 +79,7 @@ import axios from "axios";
 import {mapMutations} from "vuex";
 import router from "@/router";
 import {notification} from 'ant-design-vue';
+import store from "../store";
 
 const body = document.getElementsByTagName("body")[0];
 
@@ -95,14 +100,16 @@ export default {
       }
   },
   created() {
-    this.toggleEveryDisplay();
-    this.toggleHideConfig();
+    store.state.showNavbar = false;
+    store.state.showSidenav = false;
+    store.state.showFooter = false;
+    store.state.hideConfigButton = true;
     body.classList.remove("bg-gray-100");
   },
   beforeUnmount() {
-    this.toggleEveryDisplay();
-    this.toggleHideConfig();
-    body.classList.add("bg-gray-100");
+      this.toggleEveryDisplay();
+      this.toggleHideConfig();
+      body.classList.add("bg-gray-100");
   },
   methods: {
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
@@ -124,6 +131,8 @@ export default {
         }).then((res) => {
           console.log(res)
           if (res.data.success) {
+            store.commit("authenticated", res.data.data.user);
+            localStorage.setItem("lang","?lang=uz_lat")
             notification.success({
               message: 'Siz tizimga muvaffaqiyatli kirdingiz !',
               duration: 2
@@ -138,6 +147,9 @@ export default {
             } else {
               sessionStorage.setItem("token", token);
             }
+            store.state.hideConfigButton = true;
+            // this.toggleEveryDisplay();
+            // this.toggleHideConfig();
           } else {
             this.addClassForInput();
             notification.error({

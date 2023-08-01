@@ -1,5 +1,5 @@
 <template>
-  <sidenav
+  <sidenav class="bg-dark"
     :custom_class="this.$store.state.mcolor"
     :class="[
       this.$store.state.isTransparent,
@@ -8,7 +8,7 @@
     v-if="this.$store.state.showSidenav"
   />
   <main
-    class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+    class=" main-content position-relative max-height-vh-100 h-100 border-radius-lg"
     :style="this.$store.state.isRTL ? 'overflow-x: hidden' : ''"
   >
     <!-- nav -->
@@ -18,7 +18,7 @@
       :minNav="navbarMinimize"
       v-if="this.$store.state.showNavbar"
     />
-    <router-view />
+    <router-view/>
     <app-footer v-show="this.$store.state.showFooter" />
     <configurator
       :toggle="toggleConfigurator"

@@ -21,11 +21,9 @@
         </sidenav-collapse>
         <div class="collapse mt-1 mx-4" id="collapseExample">
           <div style="background-color:#FFFFFF; border-radius: 10px;">
-            <ul>
-              <li v-for="(form2,index) in forms" v-bind:key="index" class="p-2" style="list-style: none">
-                <router-link :to="form2.hrefAddress">{{ form2.orderNumber}}.        {{ form2.name.activeLanguage }}</router-link>
-              </li>
-            </ul>
+            <div v-for="(form2,index) in forms" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="form2.hrefAddress">{{ form2.orderNumber}}.{{ form2.name.activeLanguage }}</router-link>
+            </div>
           </div>
         </div>
       </li>
@@ -38,11 +36,9 @@
         </sidenav-collapse>
         <div class="collapse  mt-1 mx-4" id="collapseExample2">
           <div  style="background-color:#FFFFFF; border-radius: 10px;">
-            <ul>
-              <li v-for="(report,index) in reports" v-bind:key="index" class="p-2" style="list-style: none">
-                {{ report.name.activeLanguage }}
-              </li>
-            </ul>
+            <div v-for="(report,index) in reports" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="report.hrefAddress">{{ report.orderNumber}}.{{ report.name.activeLanguage }}</router-link>
+            </div>
           </div>
         </div>
       </li>
@@ -55,11 +51,9 @@
         </sidenav-collapse>
         <div class="collapse mt-1 mx-4" id="collapseExample3">
           <div style="background-color:#FFFFFF; border-radius: 10px;">
-            <ul>
-              <li v-for="(information,index) in informations" v-bind:key="index" class="p-2" style="list-style: none">
-                {{ information.name.activeLanguage }}
-              </li>
-            </ul>
+            <div v-for="(information,index) in informations" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="information.hrefAddress">{{ information.orderNumber}}.{{ information.name.activeLanguage}}</router-link>
+            </div>
           </div>
         </div>
       </li>
@@ -119,7 +113,7 @@ export default {
     },
 
     getFormList() {
-      this.$http.get("menu-system").then(res => {
+      this.$http.get("menu-system" + localStorage.getItem("lang")).then(res => {
         console.log(res.data)
         this.allForms = res.data
         this.forms = res.data[0].childForms;
@@ -136,3 +130,27 @@ export default {
   }
 };
 </script>
+
+<style>
+
+.m-1 {
+  list-style: none;
+  font-size: 13px;
+  width: 100%;
+  padding: 10px 2px 8px 2px;
+}
+.m-1 .p-2 {
+  letter-spacing: 0.1px;
+  color: #6F7496;
+  font-weight: 700;
+  margin-top: 10px;
+}
+/*.m-1 .p-2:hover {*/
+/*  background-color: #F8F9FA;*/
+/*}*/
+
+
+router-link {
+
+}
+</style>

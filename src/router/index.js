@@ -24,22 +24,32 @@ import Form12 from "@/views/forms/Form12";
 import Form14 from "@/views/forms/Form14";
 import Form16 from "@/views/forms/Form16";
 import Documents from "@/views/Documents";
+import Taxes from "../views/reference/taxes/Taxes";
+import SimilarInformations from "../views/reference/SimilarInformations";
+import AddTaxes from "../views/reference/taxes/AddTaxes";
+import store from "../store";
 
 const routes = [
   {
     path: "/home",
     name: "/home",
-    redirect: "/dashboard",
+    redirect: "/dashboard"
   },
   {
     path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/tables",
     name: "Tables",
     component: Tables,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/billing",
@@ -55,6 +65,9 @@ const routes = [
     path: "/profile",
     name: "Profile",
     component: Profile,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/rtl-page",
@@ -63,7 +76,7 @@ const routes = [
   },
   {
     path: "/",
-    name: "Sign In",
+    name: "Login",
     component: SignIn,
   },
   {
@@ -78,7 +91,7 @@ const routes = [
   },
   {
     path: "/forms/1",
-    name: "Yem-xashak",
+    name: "Extiyot-qism",
     component: Form1,
   },
   {
@@ -156,6 +169,27 @@ const routes = [
     name: "So'yilgan mollardan olingan daromad",
     component: Form16,
   },
+  //References
+  {
+    path: "/references/taxes",
+    name: "Soliqlar",
+    component: Taxes,
+  },
+  {
+    path: "/references/taxes/add",
+    name: "Soliq qoshish",
+    component: AddTaxes,
+  },
+  {
+    path: "/references/taxes/:id",
+    name: "Soliq qoshish",
+    component: AddTaxes,
+  },
+  {
+    path: "/references/def_references",
+    name: "O'xshash malumotlar",
+    component: SimilarInformations,
+  },
 ];
 
 const router = createRouter({
@@ -164,4 +198,16 @@ const router = createRouter({
   linkActiveClass: "active",
 });
 
+router.beforeEach((to) => {
+  if (to.name !== 'Login' && localStorage.getItem("token") === null) {
+    return '/'
+  }
+
+  if (to.name === 'Profile'){
+    store.state.isAbsolute = true;
+  }else{
+    store.state.isAbsolute = false;
+  }
+
+})
 export default router;

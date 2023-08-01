@@ -1,12 +1,12 @@
 <template>
-  <div class="card mb-4">
+  <div class="card m-4">
     <div class="card-header pb-0">
-      <h6>Yem-xashak xarajatlari</h6>
+      <h6>Extiyot qism</h6>
     </div>
     <div class="card-body px-0 pt-0 pb-2 m-4">
       <div class="row mb-3">
         <div class="col-md-4 mb-3">
-          <label class="mb-2" for="validationTooltip01">Mavsum</label>
+          <label class="mb-2" for="validationTooltip01">{{this.lang("season")}}</label>
           <select class="form-select" id="validationTooltip01">
             <option selected>Tanlang...</option>
             <option value="FEMALE">2023</option>
@@ -25,7 +25,6 @@
         <div class="col-md-4">
           <label for="validationTooltip01" class="mb-2">Sana</label>
           <input
-              id="password"
               class="form-control"
               type="date"
               placeholder="Kiriting"
@@ -41,7 +40,7 @@
             <th
                 class="text-uppercase text-secondary text-xxs font-weight-bolder  text-center opacity-20"
             >
-              Yem-xashak nomi
+              Extiyot qism nomi
             </th>
             <th
                 class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-20 ps-2"
@@ -173,6 +172,7 @@
 import SoftInput from "@/components/SoftInput.vue";
 import SoftSwitch from "@/components/SoftSwitch.vue";
 import SoftButton from "@/components/SoftButton.vue";
+import {getText} from "../../locales";
 import {notification} from "ant-design-vue";
 
 export default {
@@ -180,7 +180,7 @@ export default {
   components: {
     SoftInput,
     SoftSwitch,
-    SoftButton,
+    SoftButton
   },
   data() {
     return {
@@ -194,6 +194,9 @@ export default {
         message: `Yangi qator qo'shildi !`,
         duration: 1
       });
+    },
+    lang(title){
+      return getText(title);
     },
     removeRow(index) {
       this.tableRows.splice(index, 1);

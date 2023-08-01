@@ -1,8 +1,14 @@
 import { createStore } from "vuex";
 import bootstrap from "bootstrap/dist/js/bootstrap.min.js";
+import createPersistedState from 'vuex-persistedstate'
 
 export default createStore({
+  plugins: [createPersistedState()],
   state: {
+    logon: false,
+    lang: "uz_lat",
+    userIdentity: null,
+    authenticated: false,
     hideConfigButton: false,
     isPinned: true,
     showConfig: false,
@@ -58,6 +64,19 @@ export default createStore({
     toggleHideConfig(state) {
       state.hideConfigButton = !state.hideConfigButton;
     },
+    authenticate(state) {
+      state.logon = true;
+    },
+    authenticated(state, identity) {
+      state.userIdentity = identity;
+      state.authenticated = true;
+      state.logon = false
+    },
+    logout(state) {
+      state.userIdentity = null;
+      state.authenticated = false;
+      state.logon = false
+    }
   },
   actions: {
     toggleSidebarColor({ commit }, payload) {
@@ -67,5 +86,9 @@ export default createStore({
       commit("cardBackground", payload);
     },
   },
-  getters: {},
+  getters: {
+    logon: state => state.logon,
+    account: state => state.userIdentity,
+    authenticated: state => state.authenticated
+  },
 });

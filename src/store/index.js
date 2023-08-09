@@ -6,6 +6,7 @@ export default createStore({
   plugins: [createPersistedState()],
   state: {
     logon: false,
+    navColor: 'bg-none',
     lang: "uz_lat",
     userIdentity: null,
     authenticated: false,

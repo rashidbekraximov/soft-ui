@@ -1,4 +1,4 @@
 export const UzbKrill = {
-    mtp: "МТП МЧЖ",
+    mtp: "ЧСМ МЧЖ",
     season: "Мавсум"
 }

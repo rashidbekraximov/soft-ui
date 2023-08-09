@@ -1,33 +1,33 @@
 <template>
-  <sidenav class="bg-dark"
-    :custom_class="this.$store.state.mcolor"
-    :class="[
+    <sidenav
+        :custom_class="this.$store.state.mcolor"
+        :class="[
       this.$store.state.isTransparent,
       this.$store.state.isRTL ? 'fixed-end' : 'fixed-start',
     ]"
-    v-if="this.$store.state.showSidenav"
-  />
-  <main
-    class=" main-content position-relative max-height-vh-100 h-100 border-radius-lg"
-    :style="this.$store.state.isRTL ? 'overflow-x: hidden' : ''"
-  >
-    <!-- nav -->
-    <navbar
-      :class="[navClasses]"
-      :textWhite="this.$store.state.isAbsolute ? 'text-white opacity-8' : ''"
-      :minNav="navbarMinimize"
-      v-if="this.$store.state.showNavbar"
+        v-if="this.$store.state.showSidenav"
     />
-    <router-view/>
-    <app-footer v-show="this.$store.state.showFooter" />
-    <configurator
-      :toggle="toggleConfigurator"
-      :class="[
+    <main
+        class=" main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+        :style="this.$store.state.isRTL ? 'overflow-x: hidden' : ''"
+    >
+      <!-- nav -->
+      <navbar
+              :class="[navClasses, this.$store.state.navColor]"
+              :textWhite="this.$store.state.isAbsolute ? 'text-white opacity-8' : ''"
+              :minNav="navbarMinimize"
+              v-if="this.$store.state.showNavbar"
+      />
+      <router-view/>
+      <app-footer v-show="this.$store.state.showFooter" />
+      <configurator
+          :toggle="toggleConfigurator"
+          :class="[
         this.$store.state.showConfig ? 'show' : '',
         this.$store.state.hideConfigButton ? 'd-none' : '',
       ]"
-    />
-  </main>
+      />
+    </main>
 </template>
 <script>
 import Sidenav from "./examples/Sidenav";
@@ -43,8 +43,15 @@ export default {
     Navbar,
     AppFooter,
   },
+  data(){
+    return{
+    }
+  },
   methods: {
     ...mapMutations(["toggleConfigurator", "navbarMinimize"]),
+    getActiveProject(){
+      this.project = parseInt(localStorage.getItem("project"));
+    }
   },
   computed: {
     navClasses() {
@@ -60,5 +67,8 @@ export default {
   beforeMount() {
     this.$store.state.isTransparent = "bg-transparent";
   },
+  created() {
+    this.getActiveProject();
+  }
 };
 </script>

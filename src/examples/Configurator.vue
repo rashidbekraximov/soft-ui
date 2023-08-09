@@ -1,8 +1,8 @@
 <template>
   <div class="fixed-plugin">
     <a
-      class="px-3 py-2 fixed-plugin-button text-dark position-fixed"
-      @click="toggle"
+        class="px-3 py-2 fixed-plugin-button text-dark position-fixed"
+        @click="toggle"
     >
       <i class="py-2 fa fa-cog"> </i>
     </a>
@@ -19,7 +19,7 @@
         </div>
         <!-- End Toggle Button -->
       </div>
-      <hr class="my-1 horizontal dark" />
+      <hr class="my-1 horizontal dark"/>
       <div class="pt-0 card-body pt-sm-3">
         <!-- Sidebar Backgrounds -->
         <div>
@@ -27,41 +27,80 @@
         </div>
         <a href="#" class="switch-trigger background-color">
           <div
-            class="my-2 badge-colors"
-            :class="this.$store.state.isRTL ? 'text-end' : ' text-start'"
+              class="my-2 badge-colors"
+              :class="this.$store.state.isRTL ? 'text-end' : ' text-start'"
           >
             <span
-              class="badge filter bg-gradient-primary active"
-              data-color="primary"
-              @click="sidebarColor('primary')"
+                class="badge filter bg-gradient-primary active"
+                data-color="primary"
+                @click="sidebarColor('primary')"
             ></span>
             <span
-              class="badge filter bg-gradient-dark"
-              data-color="dark"
-              @click="sidebarColor('dark')"
+                class="badge filter bg-gradient-dark"
+                data-color="dark"
+                @click="sidebarColor('dark')"
             ></span>
             <span
-              class="badge filter bg-gradient-info"
-              data-color="info"
-              @click="sidebarColor('info')"
+                class="badge filter bg-gradient-info"
+                data-color="info"
+                @click="sidebarColor('info')"
             ></span>
             <span
-              class="badge filter bg-gradient-success"
-              data-color="success"
-              @click="sidebarColor('success')"
+                class="badge filter bg-gradient-success"
+                data-color="success"
+                @click="sidebarColor('success')"
             ></span>
             <span
-              class="badge filter bg-gradient-warning"
-              data-color="warning"
-              @click="sidebarColor('warning')"
+                class="badge filter bg-gradient-warning"
+                data-color="warning"
+                @click="sidebarColor('warning')"
             ></span>
             <span
-              class="badge filter bg-gradient-danger"
-              data-color="danger"
-              @click="sidebarColor('danger')"
+                class="badge filter bg-gradient-danger"
+                data-color="danger"
+                @click="sidebarColor('danger')"
             ></span>
           </div>
         </a>
+        <hr class="my-1 horizontal dark"/>
+<!--        <div class="pt-0 card-body pt-sm-3">-->
+          <!-- Sidebar Backgrounds -->
+          <div>
+            <h6 class="mb-0">Navbar Colors</h6>
+          </div>
+          <a href="#" class="switch-trigger background-color">
+            <div
+                class="my-2 badge-colors"
+                :class="this.$store.state.isRTL ? 'text-end' : ' text-start'"
+            >
+            <span
+                class="badge filter bg-gradient-light active"
+                data-color="primary"
+                @click="navbarColor('light')"
+            ></span>
+              <span
+                  class="badge filter bg-gradient-info"
+                  data-color="info"
+                  @click="navbarColor('info')"
+              ></span>
+              <span
+                  class="badge filter bg-gradient-success"
+                  data-color="success"
+                  @click="navbarColor('success')"
+              ></span>
+              <span
+                  class="badge filter bg-gradient-warning"
+                  data-color="warning"
+                  @click="navbarColor('warning')"
+              ></span>
+              <span
+                  class="badge filter bg-gradient-none border"
+                  data-color="danger"
+                  @click="navbarColor('none')"
+              ></span>
+            </div>
+          </a>
+<!--        </div>-->
         <!-- Sidenav Type -->
         <div class="mt-3">
           <h6 class="mb-0">Sidenav Type</h6>
@@ -69,18 +108,18 @@
         </div>
         <div class="d-flex">
           <button
-            id="btn-transparent"
-            class="px-3 mb-2 btn bg-gradient-success w-100"
-            :class="ifTransparent === 'bg-transparent' ? 'active' : ''"
-            @click="sidebarType('bg-transparent')"
+              id="btn-transparent"
+              class="px-3 mb-2 btn bg-gradient-success w-100"
+              :class="ifTransparent === 'bg-transparent' ? 'active' : ''"
+              @click="sidebarType('bg-transparent')"
           >
             Transparent
           </button>
           <button
-            id="btn-white"
-            class="px-3 mb-2 btn bg-gradient-success w-100 ms-2"
-            :class="ifTransparent === 'bg-white' ? 'active' : ''"
-            @click="sidebarType('bg-white')"
+              id="btn-white"
+              class="px-3 mb-2 btn bg-gradient-success w-100 ms-2"
+              :class="ifTransparent === 'bg-white' ? 'active' : ''"
+              @click="sidebarType('bg-white')"
           >
             White
           </button>
@@ -94,53 +133,53 @@
         </div>
         <div class="form-check form-switch ps-0">
           <input
-            class="mt-1 form-check-input"
-            :class="this.$store.state.isRTL ? 'float-end  me-auto' : ' ms-auto'"
-            type="checkbox"
-            id="navbarFixed"
-            :checked="this.$store.state.isNavFixed"
-            @change="setNavbarFixed"
-            v-model="fixedKey"
+              class="mt-1 form-check-input"
+              :class="this.$store.state.isRTL ? 'float-end  me-auto' : ' ms-auto'"
+              type="checkbox"
+              id="navbarFixed"
+              :checked="this.$store.state.isNavFixed"
+              @change="setNavbarFixed"
+              v-model="fixedKey"
           />
         </div>
-        <hr class="horizontal dark my-sm-4" />
+        <hr class="horizontal dark my-sm-4"/>
         <a
-          class="btn bg-gradient-info w-100"
-          href="https://www.creative-tim.com/product/vue-soft-ui-dashboard-pro"
-          >Buy now</a
+            class="btn bg-gradient-info w-100"
+            href="https://www.creative-tim.com/product/vue-soft-ui-dashboard-pro"
+        >Buy now</a
         >
         <a
-          class="btn bg-gradient-dark w-100"
-          href="https://www.creative-tim.com/product/vue-soft-ui-dashboard"
-          >Free demo</a
+            class="btn bg-gradient-dark w-100"
+            href="https://www.creative-tim.com/product/vue-soft-ui-dashboard"
+        >Free demo</a
         >
         <a
-          class="btn btn-outline-dark w-100"
-          href="https://www.creative-tim.com/learning-lab/vue/overview/soft-ui-dashboard/"
-          >View documentation</a
+            class="btn btn-outline-dark w-100"
+            href="https://www.creative-tim.com/learning-lab/vue/overview/soft-ui-dashboard/"
+        >View documentation</a
         >
         <div class="text-center w-100">
           <a
-            class="github-button"
-            href="https://github.com/creativetimofficial/vue-soft-ui-dashboard"
-            data-icon="octicon-star"
-            data-size="large"
-            data-show-count="true"
-            aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub"
-            >Star</a
+              class="github-button"
+              href="https://github.com/creativetimofficial/vue-soft-ui-dashboard"
+              data-icon="octicon-star"
+              data-size="large"
+              data-show-count="true"
+              aria-label="Star creativetimofficial/soft-ui-dashboard on GitHub"
+          >Star</a
           >
           <h6 class="mt-3">Thank you for sharing!</h6>
           <a
-            href="https://twitter.com/intent/tweet?text=Check%20Vue%20Soft%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fvue-soft-ui-dashboard"
-            class="mb-0 btn btn-dark me-2"
-            target="_blank"
+              href="https://twitter.com/intent/tweet?text=Check%20Vue%20Soft%20UI%20Dashboard%20made%20by%20%40CreativeTim%20%23webdesign%20%23dashboard%20%23bootstrap5&amp;url=https%3A%2F%2Fwww.creative-tim.com%2Fproduct%2Fvue-soft-ui-dashboard"
+              class="mb-0 btn btn-dark me-2"
+              target="_blank"
           >
             <i class="fab fa-twitter me-1" aria-hidden="true"></i> Tweet
           </a>
           <a
-            href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/vue-soft-ui-dashboard"
-            class="mb-0 btn btn-dark me-2"
-            target="_blank"
+              href="https://www.facebook.com/sharer/sharer.php?u=https://www.creative-tim.com/product/vue-soft-ui-dashboard"
+              class="mb-0 btn btn-dark me-2"
+              target="_blank"
           >
             <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
           </a>
@@ -151,7 +190,8 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from "vuex";
+import {mapMutations, mapActions} from "vuex";
+
 export default {
   name: "configurator",
   props: ["toggle"],
@@ -167,6 +207,10 @@ export default {
     sidebarColor(color = "success") {
       document.querySelector("#sidenav-main").setAttribute("data-color", color);
       this.$store.state.mcolor = `card-background-mask-${color}`;
+    },
+    navbarColor(color = "success") {
+      document.querySelector("#navbar").setAttribute("data-color", color);
+      this.$store.state.navColor = `bg-${color}`;
     },
 
     sidebarType(type) {

@@ -1,5 +1,5 @@
 export const UzbLat = {
-    mtp: "MTP MCHJ",
+    mtp: "CHSM MCHJ",
 
     season: "Mavsum"
 }

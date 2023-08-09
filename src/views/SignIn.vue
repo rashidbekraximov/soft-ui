@@ -139,7 +139,7 @@ export default {
             });
             const token = res.data.data.accessToken;
             console.log(token)
-            router.push("/documents");
+            router.push("/dashboard");
 
             if (this.rememberMe) {
               console.log(this.rememberMe);

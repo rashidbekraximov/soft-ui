@@ -1,5 +1,5 @@
 export const Rus = {
-    mtp: "ООО МТП",
+    mtp: "ООО ЧСМ",
 
     season: "Сезон"
 }

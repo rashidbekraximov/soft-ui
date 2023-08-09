@@ -30,7 +30,7 @@
           </div>
         </div>
         <ul class="navbar-nav justify-content-end">
-          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          <li class="nav-item d-xl-none ps-3 d-flex align-items-center m-4">
             <a
               href="#"
               @click="toggleSidebar"
@@ -124,6 +124,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item dropdown d-flex align-items-center mx-2 cursor-pointer" data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title
+              aria-hidden="true"
+              data-bs-original-title="Logout"
+              aria-label="Logout" @click="logout" >
+            <img src="@/assets/img/logout.png" alt="Logout" width="35" height="35">
+          </li>
         </ul>
       </div>
     </div>
@@ -134,6 +142,7 @@ import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapActions } from "vuex";
 import uzb from "@/assets/img/uzb.png";
 import rus from "@/assets/img/rus.png";
+import router from "../../router";
 
 export default {
   name: "navbar",
@@ -153,6 +162,11 @@ export default {
     ...mapMutations(["navbarMinimize", "toggleConfigurator"]),
     ...mapActions(["toggleSidebarColor"]),
 
+    logout(){
+      localStorage.clear();
+      sessionStorage.clear();
+      router.push("/");
+    },
     toggleSidebar() {
       this.toggleSidebarColor("bg-white");
       this.navbarMinimize();

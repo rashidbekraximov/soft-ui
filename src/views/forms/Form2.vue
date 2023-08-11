@@ -9,6 +9,7 @@
                   id="date"
                   class="form-control"
                   type="date"
+                  v-model="purchase.date"
                   required
               />
             </div>
@@ -27,9 +28,8 @@
             <div class="col-md-6">
               <label>Mahsulot nomi</label>
               <select class="form-select" v-model="purchase.productId">
-                <option>Kiriting</option>
-                <option>Klines</option>
-                <option>Chinoz</option>
+                <option selected>Tanlang...</option>
+                <option v-for="(product,index) in productType" v-bind:key="index" :value="index">{{product}}</option>
               </select>
             </div>
             <div class="col-md-6">
@@ -38,6 +38,7 @@
                   class="form-control"
                   type="number"
                   v-model="purchase.weight"
+                  @input="addValue"
                   placeholder="Kiriting"
                   required
               />
@@ -49,6 +50,7 @@
               <input
                   class="form-control"
                   type="number"
+                  @input="addValue"
                   placeholder="Kiriting"
                   v-model="purchase.price"
                   required
@@ -62,6 +64,7 @@
                   placeholder="Kiriting"
                   v-model="purchase.value"
                   required
+                  readonly
               />
             </div>
           </div>
@@ -72,6 +75,7 @@
                   class="form-control"
                   type="number"
                   v-model="purchase.fare"
+                  @input="addAdditionValue"
                   placeholder="Kiriting"
                   required
               />
@@ -80,7 +84,8 @@
               <label>Nasos</label>
               <input
                   class="form-control"
-                  type="text"
+                  type="number"
+                  @input="addAdditionValue"
                   v-model="purchase.nasos"
                   placeholder="Kiriting"
                   required
@@ -92,7 +97,8 @@
               <label>Prostoy</label>
               <input
                   class="form-control"
-                  type="text"
+                  type="number"
+                  @input="addAdditionValue"
                   placeholder="Kiriting"
                   required
                   v-model="purchase.prostoy"
@@ -165,11 +171,9 @@
             </div>
             <div class="col-md-6">
               <label>Holati</label>
-              <select
-                  class="form-control" v-model="purchase.status"
-              >
-                <option>Kiriting</option>
-                <option>Vaqt bor</option>
+              <select class="form-select" v-model="purchase.status">
+                <option selected>Tanlang...</option>
+                <option v-for="(s,index) in status" v-bind:key="index" :value="index">{{s}}</option>
               </select>
             </div>
           </div>
@@ -179,7 +183,7 @@
               <textarea class="form-control" placeholder="Izoh"  rows="5" v-model="purchase.description"></textarea>
             </div>
           </div>
-          <div class="row">
+          <div class="row mb-3">
             <div class="col-md-6"></div>
             <div class="col-md-3">
               <soft-button
@@ -204,7 +208,7 @@
         </div>
           <div id="showScroll" class="container card col-lg-4 col-md-6">
             <div id="receipt">
-              <h1 class="logo">CVS/pharm</h1>
+              <h1 class="logo">CHSM</h1>
               <div class="address">
                 666 Lincoln St. Santa Monica, CA
               </div>
@@ -244,7 +248,7 @@
 <script>
 
 import SoftButton from "@/components/SoftButton.vue";
-import {notification} from "ant-design-vue";
+// import {notification} from "ant-design-vue";
 // import printJS from 'print-js'
 import qz from 'qz-tray'
 
@@ -255,8 +259,10 @@ export default {
   },
   data() {
     return {
+      status:[],
+      productType:[],
       purchase:{
-        date: new Date(),
+        date: '2023-10-04',
         client: '',
         productId: 0,
         weight: 0,
@@ -267,9 +273,9 @@ export default {
         prostoy: 0,
         totalValue: 0,
         avtoNumber: '',
-        raschotDate: new Date(),
-        expiryDate: new Date(),
-        givenMoneyDate: new Date(),
+        raschotDate:'2023-10-04',
+        expiryDate: '2023-10-04',
+        givenMoneyDate: '2023-10-04',
         givenSumm: 0,
         status: 0,
         description: ''
@@ -280,6 +286,22 @@ export default {
 
     addValue(){
         this.purchase.value = this.purchase.price * this.purchase.weight;
+        this.addAdditionValue();
+    },
+    addAdditionValue(){
+        this.purchase.totalValue = this.purchase.fare  + this.purchase.nasos + this.purchase.prostoy + this.purchase.value;
+    },
+
+    getSelect(name){
+      this.$http.get("references/def/" + name + localStorage.getItem("lang")).then(res => {
+        console.log(res.data)
+
+        if (name === 'status'){
+          this.status = res.data;
+        }else{
+          this.productType = res.data;
+        }
+      })
     },
 
     print(){
@@ -307,6 +329,10 @@ export default {
         return qz.print(config,data).catch(function(e) { console.error(e); });
       })
     }
+  },
+  created() {
+    this.getSelect('status');
+    this.getSelect('product_type');
   }
 }
 </script>

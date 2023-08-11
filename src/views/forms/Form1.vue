@@ -1,7 +1,7 @@
 <template>
   <div class="card m-4">
     <div class="card-header pb-0">
-      <h6>Extiyot qism</h6>
+      <h6>Xarajatlar</h6>
     </div>
     <div class="card-body px-0 pt-0 pb-2 m-4">
       <div class="row mb-3">

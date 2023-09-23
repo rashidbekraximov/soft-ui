@@ -23,11 +23,13 @@
               {{ typeof title === "string" ? title : title.text }}
             </p>
             <h5 class="mb-0 font-weight-bolder" :class="value.color">
-              {{
-                typeof value === "string" || typeof value === "number"
-                  ? value
-                  : value.text
-              }}
+<!--              {{-->
+<!--                typeof value === "string" || typeof value === "number"-->
+<!--                  ? value-->
+<!--                  : value.text-->
+<!--              }}-->
+              <Vue3autocounter ref='counter' :startAmount='0' :endAmount='value' :duration='1' prefix='' separator=',' decimalSeparator='.' :decimals='1' :autoinit='true'/>
+              {{id >= 1000 ? 'dona' : 'so\'m'}}
               <span
                 class="text-sm font-weight-bolder"
                 :class="percentage.color"
@@ -54,8 +56,14 @@
 </template>
 
 <script>
+
+import Vue3autocounter from 'vue3-autocounter';
+
 export default {
   name: "MiniStatisticsCard",
+  components: {
+    Vue3autocounter,
+  },
   props: {
     directionReverse: {
       type: Boolean,
@@ -108,6 +116,10 @@ export default {
     classContent: {
       type: String,
       default: "",
+    },
+    id: {
+      type: Number,
+      default: 0,
     },
   },
   data() {

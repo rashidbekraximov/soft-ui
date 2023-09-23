@@ -18,16 +18,7 @@
           :class="icon"
         ></i>
       </div>
-      <div v-if="this.$store.state.isRTL" class="docs-info">
-        <h6 class="mb-0 text-white up text-end">تحتاج مساعدة ؟</h6>
-        <p class="text-xs font-weight-bold text-end">
-          يرجى التحقق من مستنداتنا
-        </p>
-        <a :href="route" target="_blank" class="mb-0 btn btn-white btn-sm w-100"
-          >توثيق
-        </a>
-      </div>
-      <div v-else class="docs-info">
+      <div class="docs-info">
         <h6 class="mb-0 text-white up">{{ textPrimary }}</h6>
         <p class="text-xs font-weight-bold">{{ textSecondary }}</p>
         <a :href="route" target="_blank" class="mb-0 btn btn-white btn-sm w-100"

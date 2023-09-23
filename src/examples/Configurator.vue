@@ -9,7 +9,7 @@
     <div class="shadow-lg card blur">
       <div class="pt-3 pb-0 bg-transparent card-header">
         <div class="float-start">
-          <h5 class="mt-3 mb-0">Soft UI Configurator</h5>
+          <h5 class="mt-3 mb-0">STARK</h5>
           <p>See our dashboard options.</p>
         </div>
         <div class="mt-4 float-end" @click="toggle">
@@ -28,7 +28,6 @@
         <a href="#" class="switch-trigger background-color">
           <div
               class="my-2 badge-colors"
-              :class="this.$store.state.isRTL ? 'text-end' : ' text-start'"
           >
             <span
                 class="badge filter bg-gradient-primary active"
@@ -143,21 +142,21 @@
           />
         </div>
         <hr class="horizontal dark my-sm-4"/>
-        <a
-            class="btn bg-gradient-info w-100"
-            href="https://www.creative-tim.com/product/vue-soft-ui-dashboard-pro"
-        >Buy now</a
-        >
-        <a
-            class="btn bg-gradient-dark w-100"
-            href="https://www.creative-tim.com/product/vue-soft-ui-dashboard"
-        >Free demo</a
-        >
-        <a
-            class="btn btn-outline-dark w-100"
-            href="https://www.creative-tim.com/learning-lab/vue/overview/soft-ui-dashboard/"
-        >View documentation</a
-        >
+<!--        <a-->
+<!--            class="btn bg-gradient-info w-100"-->
+<!--            href="https://www.creative-tim.com/product/vue-soft-ui-dashboard-pro"-->
+<!--        >Buy now</a-->
+<!--        >-->
+<!--        <a-->
+<!--            class="btn bg-gradient-dark w-100"-->
+<!--            href="https://www.creative-tim.com/product/vue-soft-ui-dashboard"-->
+<!--        >Free demo</a-->
+<!--        >-->
+<!--        <a-->
+<!--            class="btn btn-outline-dark w-100"-->
+<!--            href="https://www.creative-tim.com/learning-lab/vue/overview/soft-ui-dashboard/"-->
+<!--        >View documentation</a-->
+<!--        >-->
         <div class="text-center w-100">
           <a
               class="github-button"

@@ -35,7 +35,8 @@
                 class="p-1 bg-transparent nav nav-pills nav-fill"
                 role="tablist"
             >
-              <li class="nav-item">
+              <li class="nav-item" @click="showTab(1)" data-toggle="collapse" href="#collapse1"
+                  aria-expanded="false" aria-controls="collapse1">
                 <a
                     class="px-0 py-1 mb-0 nav-link active"
                     data-bs-toggle="tab"
@@ -87,7 +88,8 @@
                   <span class="ms-1">App</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" @click="showTab(2)" data-toggle="collapse" href="#collapse2"
+                  aria-expanded="false" aria-controls="collapse2">
                 <a
                     class="px-0 py-1 mb-0 nav-link"
                     data-bs-toggle="tab"
@@ -135,7 +137,8 @@
                   <span class="ms-1">Messages</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" @click="showTab(3)" data-toggle="collapse" href="#collapse2"
+                  aria-expanded="false" aria-controls="collapse2">
                 <a
                     class="px-0 py-1 mb-0 nav-link"
                     data-bs-toggle="tab"
@@ -195,7 +198,7 @@
     </div>
   </div>
   <div class="py-4 container-fluid">
-    <div class="mt-3 row">
+    <div class="mt-3 row collapse show" id="collapse1">
       <div class="col-12 col-md-8">
         <div class="card h-100">
           <div class="p-3 pb-0 card-header">
@@ -204,14 +207,10 @@
           <div class="p-3 card-body">
             <div class="row mb-3">
               <div class="col-md-4 d-none">
-                <label>Ism</label>
                 <input
                     class="form-control"
                     type="number"
-                    placeholder="Kiriting"
-                    name="password"
                     v-model="activeUser.id"
-                    required
                 />
               </div>
               <div class="col-md-4">
@@ -323,16 +322,13 @@
                 <select class="form-select" v-model="activeUser.systemRoleName">
                   <option selected>Tanlang...</option>
                   <option value="SYSTEM_ROLE_SUPER_ADMIN">Super Admin</option>
-                  <option value="ADMIN">Admin</option>
-                  <option value="MEMBER">Member</option>
-                </select>
-              </div>
-              <div class="col-md-4 mb-3">
-                <label class="mb-2">MTP</label>
-                <select class="form-select" v-model="activeUser.clusterId">
-                  <option selected>Tanlang...</option>
-                  <option value="1">BAGAT MTP MCHJ</option>
-                  <option value="2">KHANQA MTP MCHJ</option>
+                  <option value="PURCHASE_ADMIN">Sotuv Admin</option>
+                  <option value="LOGISTIC_ADMIN">Logistik Admin</option>
+                  <option value="PRODUCE_ADMIN">Ishlab chiqarish Admin</option>
+                  <option value="LEADER_BETON_ADMIN">LB Admin</option>
+                  <option value="NASOS_ADMIN">Nasos Admin</option>
+                  <option value="SALARY_ADMIN">Ish haqi Admin</option>
+                  <option value="SETTINGS_ADMIN">Sozlamalar Admin</option>
                 </select>
               </div>
               <div class="col-md-4 mb-3">
@@ -362,7 +358,8 @@
                     variant="gradient"
                     color="danger"
                     full-width
-                >Bekor qilish
+                    @click="clear"
+                >Tozalash
                 </soft-button>
               </div>
             </div>
@@ -390,15 +387,203 @@
                 <div
                     class="d-flex align-items-start flex-column justify-content-center"
                 >
-                  <h6 class="mb-0 text-sm">{{userOne.firstName}}  {{userOne.lastName}}</h6>
+                  <h6 class="mb-0 text-sm">{{ userOne.firstName }} {{ userOne.lastName }}</h6>
                   <p class="mb-0 text-xs">Hi! I need more information..</p>
                 </div>
                 <a
                     class="mb-0 btn btn-link pe-3 ps-0 ms-auto"
-                     @click="getUserById(userOne.id)"
+                    @click="getUserById(userOne.id)"
                 >Reply</a>
               </li>
             </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 row collapse" id="collapse2">
+      <div class="col-12 col-md-8">
+        <div class="card h-100">
+          <div class="p-3 pb-0 card-header">
+            <h6 class="mb-0">Tizimdagi ruxsatnomalar</h6>
+          </div>
+          <div class="p-3 card-body">
+            <div class="row mb-3">
+              <div class="col-md-4 d-none">
+                <input
+                    class="form-control"
+                    type="number"
+                    v-model="activeUser.id"
+                />
+              </div>
+              <div class="col-md-4">
+                <label class="mb-2">Lavozimlar</label>
+                <select class="form-select" @change="getFormListByRole(roleForm.systemRoleName)"
+                        v-model="roleForm.systemRoleName">
+                  <option selected disabled>Tanlang...</option>
+                  <option value="PURCHASE_ADMIN">Sotuv Admin</option>
+                  <option value="LOGISTIC_ADMIN">Logistik Admin</option>
+                  <option value="PRODUCE_ADMIN">Ishlab chiqarish Admin</option>
+                  <option value="LEADER_BETON_ADMIN">LB Admin</option>
+                  <option value="NASOS_ADMIN">Nasos Admin</option>
+                  <option value="SALARY_ADMIN">Ish haqi Admin</option>
+                  <option value="SETTINGS_ADMIN">Sozlamalar Admin</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <div class="table-responsive p-0">
+                  <table class="table align-items-center justify-content-center mb-0">
+                    <thead>
+                    <tr>
+                      <th
+                          class="text-uppercase text-secondary text-xxs font-weight-bolder  text-center opacity-20"
+                      >
+                        Id
+                      </th>
+                      <th
+                          class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-20 ps-2"
+                      >
+                        Forma Nomi
+                      </th>
+                      <th
+                          class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-20 ps-2"
+                      >
+                        Ko'rish
+                      </th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-20 ps-2"
+                      >
+                        QO'SHISH
+                      </th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-20 ps-2">
+                        TAHRIRLASH
+                      </th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-20 ps-2">
+                        O'CHIRISH
+                      </th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-20 ps-2">
+                        SOAT
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="(t,index) in roleForm.roleFormPermissions" :id="index" v-bind:key="index">
+                      <td class="text-center">
+                        <p class="text-sm font-weight-bold mb-0">{{ t.id.length > 4 ? t.form.id :  t.id }}</p>
+                      </td>
+                      <td class="text-center">
+                        <p class="text-sm mb-0">{{ t.name === undefined ? t.form.name.activeLanguage : t.name.activeLanguage }}</p>
+                        <input
+                            class="d-none"
+                            type="number"
+                            v-model="t.formNumber"
+                        />
+                      </td>
+                      <td>
+                        <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                          <input class="form-check-input" type="checkbox" v-model="t.canView" >
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                          <input class="form-check-input" type="checkbox" v-model="t.canInsert" >
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                          <input class="form-check-input" type="checkbox" v-model="t.canEdit" >
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-check form-switch d-flex align-items-center justify-content-center">
+                          <input class="form-check-input" type="checkbox" v-model="t.canDelete" >
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center justify-content-center">
+                          <input
+                              class="form-control"
+                              style="width: 150px"
+                              type="number"
+                              placeholder="Kiriting"
+                              v-model="t.time"
+                              required
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8"></div>
+              <div class="col-md-2">
+                <soft-button
+                    class="my-4 mb-2"
+                    variant="gradient"
+                    color="success"
+                    @click="saveRole"
+                    full-width
+                >Saqlash
+                </soft-button>
+              </div>
+              <div class="col-md-2">
+                <soft-button
+                    class="my-4 mb-2"
+                    variant="gradient"
+                    color="danger"
+                    @click="cancel"
+                    full-width
+                >Orqaga
+                </soft-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4  col-md-4 mt-xl-0">
+        <div class="card h-100">
+          <div class="p-3 pb-0 card-header">
+            <h6 class="mb-0">Foydalanuvchilar</h6>
+          </div>
+          <div class="p-3 card-body">
+            <ul class="list-group">
+              <li
+                  class="px-0 border-0 list-group-item d-flex align-items-center"
+                  v-for="(r,index) in roles" v-bind:key="index"
+              >
+                <soft-avatar
+                    class="me-3"
+                    :img="index % 2 === 1 ? nick : peterson"
+                    alt="kal"
+                    border-radius="lg"
+                    shadow="regular"
+                />
+                <div
+                    class="d-flex align-items-start flex-column justify-content-center"
+                >
+                  <h6 class="mb-0 text-sm">{{ r.systemRoleName }}</h6>
+                  <p class="mb-0 text-xs">Hi! I need more information..</p>
+                </div>
+                <a
+                    class="mb-0 btn btn-link pe-3 ps-0 ms-auto"
+                    @click="getRoleById(r.id)"
+                >Reply</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 row collapse" id="collapse3">
+      <div class="col-12 col-md-12">
+        <div class="card h-100">
+          <div class="p-3 pb-0 card-header">
+            <h6 class="mb-0">Sozlamalar</h6>
+          </div>
+          <div class="p-3 card-body">
           </div>
         </div>
       </div>
@@ -407,8 +592,7 @@
 </template>
 
 <script>
-// import SoftSwitch from "@/components/SoftSwitch.vue";
-// import ProfileInfoCard from "./components/ProfileInfoCard.vue";
+import SoftButton from "@/components/SoftButton.vue";
 import SoftAvatar from "@/components/SoftAvatar.vue";
 import nick from "@/assets/img/team-3.jpg";
 import peterson from "@/assets/img/team-4.jpg";
@@ -420,20 +604,41 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import setNavPills from "@/assets/js/nav-pills.js";
 import setTooltip from "@/assets/js/tooltip.js";
-import SoftButton from "@/components/SoftButton.vue";
 import {notification} from "ant-design-vue";
+
+const router = require("../router");
 
 export default {
   name: "ProfileOverview",
   components: {
     SoftButton,
-    SoftAvatar,
+    SoftAvatar
   },
   data() {
     return {
       user: {},
-      activeUser:{},
+      activeUser: {
+        id: 0,
+        firstName: '',
+        lastName: '',
+        middleName: '',
+        clusterId: 0,
+        gender: 'MALE',
+        documentSerialNumber: '',
+        systemRoleName: '',
+        login: '',
+        birthday: '',
+        email: '',
+        password: '',
+        enabled: true
+      },
       users: [],
+      roles: [],
+      roleForm: {
+        id: 0,
+        systemRoleName: '',
+        roleFormPermissions: [],
+      },
       role: '',
       showMenu: false,
       nick,
@@ -444,48 +649,126 @@ export default {
     };
   },
   methods: {
+    showTab(id) {
+      const test1 = document.getElementById('collapse1');
+      const test2 = document.getElementById('collapse2');
+      const test3 = document.getElementById('collapse3');
+
+      if (id === 1) {
+        if (test1.className.length <= 18) {
+          test1.className += ' show';
+        }
+        test2.className = test2.className.substring(0, 18);
+        test3.className = test3.className.substring(0, 18);
+
+      } else if (id === 2) {
+        if (test2.className.length <= 18) {
+          test2.className += ' show';
+        }
+        test1.className = test2.className.substring(0, 18);
+        test3.className = test3.className.substring(0, 18);
+      } else {
+        if (test3.className.length <= 18) {
+          test3.className += ' show';
+        }
+        test1.className = test2.className.substring(0, 18);
+        test2.className = test3.className.substring(0, 18);
+      }
+    },
+    clear() {
+      this.activeUser.id = 0
+      this.activeUser.firstName = ''
+      this.activeUser.lastName = ''
+      this.activeUser.middleName = ''
+      this.activeUser.clusterId = 0
+      this.activeUser.gender = 'MALE'
+      this.activeUser.documentSerialNumber = ''
+      this.activeUser.systemRoleName = ''
+      this.activeUser.login = ''
+      this.activeUser.birthday = ''
+      this.activeUser.email = ''
+      this.activeUser.password = ''
+      this.activeUser.enabled = true
+    },
     getUserList() {
       this.$http.get("users").then(res => {
         this.users = res.data
       })
     },
-     getUserById(id) {
+    getRoleList() {
+      this.$http.get("role/list").then(res => {
+        this.roles = res.data
+      })
+    },
+    getFormListByRole(role) {
+      this.$http.get("role-form/" + role + localStorage.getItem("lang")).then(res => {
+        this.roleForm.roleFormPermissions = res.data
+      })
+    },
+    getUserById(id) {
       this.$http.get("user/" + id).then(res => {
         this.activeUser = res.data
       })
     },
-    save() {
-      console.log(this.activeUser)
-      this.$http.post("user/save",this.activeUser).then(res => {
+    getRoleById(id) {
+      this.$http.get("role/" + id + localStorage.getItem("lang")).then(res => {
+        this.roleForm = res.data
+        for (let i = 0; i < this.roleForm.roleFormPermissions.length; i++) {
+          this.roleForm.roleFormPermissions[i].formNumber = this.roleForm.roleFormPermissions[i].form.id
+        }
+        console.log(this.roleForm)
         console.log(res.data)
-        if (res.status === 201){
+      })
+    },
+    cancel(){
+      router.go(-1);
+    },
+    save() {
+      this.$http.post("user/save" + localStorage.getItem("lang"), this.activeUser).then(res => {
+        if (res.status === 201) {
           notification.success({
-            message: 'Muvaffaqiyatli saqlandi !',
+            message: res.data.message,
             duration: 2
           });
           this.activeUser = res.data
           this.getUserList();
-        }else{
-          notification.error({
-            message: 'Saqlashda xatolik yuzaga keldi !',
-            duration: 1
-          });
         }
-
+      }).catch((reason) => {
+        notification.error({
+          message: reason.response.data.message,
+          duration: 2
+        });
+      })
+    },
+    saveRole() {
+      this.$http.post("role/save" + localStorage.getItem("lang"), this.roleForm).then(res => {
+        if (res.status === 201) {
+          notification.success({
+            message: res.data.message,
+            duration: 2
+          });
+          this.getRoleList();
+        }
+      }).catch((reason) => {
+        notification.error({
+          message: reason.response.data.message,
+          duration: 2
+        });
       })
     },
     getProfileData() {
-      this.user = this.$store.getters.account
-      console.log(this.user)
-      this.activeUser = this.user
-      if (this.user.systemRoleName === 'SYSTEM_ROLE_SUPER_ADMIN') {
-        this.role = 'Super Admin';
-      }
+      this.$http.get("account" + localStorage.getItem("lang")).then(res => {
+        this.user = res.data
+        if (this.user.systemRoleName === 'SYSTEM_ROLE_SUPER_ADMIN') {
+          this.role = 'Super Admin';
+        }
+      })
     }
   },
   created() {
     this.getProfileData();
     this.getUserList();
+    this.getRoleList();
   },
   mounted() {
     this.$store.state.isAbsolute = true;

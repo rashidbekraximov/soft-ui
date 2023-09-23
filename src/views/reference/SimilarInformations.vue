@@ -142,19 +142,24 @@ export default {
       })
     },
     save(){
-      console.log(this.reference)
-      this.$http.post("references/def_references",this.reference).then(res => {
-        if (res.status === 201){
+      this.$http.post("references/def_references" + localStorage.getItem("lang"),this.reference).then(res => {
+        if (res.status === 201) {
           notification.success({
-            message: `Muvaffaqiyatli saqlandi !`,
-            duration: 1
+            message: res.data.message,
+            duration: 2
           });
-        }else{
+          router.go(-1);
+        } else {
           notification.error({
             message: `Xato yuzaga keldi !`,
             duration: 1
           });
         }
+      }).catch((reason) => {
+        notification.error({
+          message: reason.response.data.message,
+          duration: 2
+        });
       })
     },
     cancel(){
@@ -163,7 +168,6 @@ export default {
     getSimilarTableById(id) {
       this.$http.get("references/def_references/" + id).then(res => {
         this.reference.items = res.data
-        console.log("table ucun",this.reference.items)
       })
     },
     addRow() {

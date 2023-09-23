@@ -15,7 +15,6 @@
         <div class="col-md-4">
           <label>Yuk xati raqami</label>
           <soft-input
-              id="password"
               type="text"
               placeholder="Kiriting"
               name="password"
@@ -25,7 +24,6 @@
         <div class="col-md-4">
           <label for="validationTooltip01" class="mb-2">Sana</label>
           <input
-              id="password"
               class="form-control"
               type="date"
               placeholder="Kiriting"

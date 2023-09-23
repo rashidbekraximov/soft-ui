@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="my-3 overflow-auto border-0 sidenav navbar navbar-vertical navbar-expand-xs border-radius-xl"
+    class="my-3 overflow-auto border-0 sidenav navbar navbar-vertical navbar-expand-xs border-radius-xl  overflow-hidden"
     :class="isRTL ? 'me-3 rotate-caret' : 'ms-3'"
     id="sidenav-main"
   >
@@ -10,10 +10,10 @@
         aria-hidden="true"
         id="iconSidenav"
       ></i>
-      <a class="m-0 navbar-brand" href="/documents">
-        <img :src="logo" class="navbar-brand-img h-100 mx-2" width="70" height="90" alt="main_logo" />
+      <router-link class="m-0 navbar-brand text-center" to="/dashboard-list">
+        <img :src="logo" class="navbar-brand-img h-100 mx-2" width="50" height="250" alt="main_logo" />
         <span class="ms-1 font-weight-bold mx-4">{{this.lang("mtp")}}</span>
-      </a>
+      </router-link>
     </div>
     <hr class="mt-0 horizontal dark" />
     <sidenav-list :cardBg="customClass" />
@@ -21,7 +21,7 @@
 </template>
 <script>
 import SidenavList from "./SidenavList.vue";
-import logo from "@/assets/img/logo-ct.png";
+import logo from "@/assets/img/logos/logo.png";
 import { mapState } from "vuex";
 import {getText} from "../../locales";
 

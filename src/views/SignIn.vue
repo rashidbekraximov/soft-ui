@@ -1,19 +1,19 @@
 <template>
-  <main class="mt-0 main-content main-content-bg">
+  <main id="main" class="mt-0 main-content main-content-bg">
     <section>
-      <div class="page-header min-vh-75">
+      <div class="page-header min-vh-100">
         <div class="container">
           <div class="row">
             <div class="mx-auto col-xl-4 col-lg-5 col-md-6 d-flex flex-column">
-              <div class="mt-8 card card-plain">
+              <div class="mt-8">
                 <div class="pb-0 card-header text-start">
                   <h3 class="font-weight-bolder text-success text-gradient">
-                    MTP MCHJ
+                    STARK
                   </h3>
                   <p class="mb-0">Enter your email and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" class="text-start" @submit.prevent="authentication">
+                  <form class="text-start" @submit.prevent="authentication">
                       <label>Login</label>
                       <soft-input
                           id="login"
@@ -49,16 +49,26 @@
                 </div>
                 <div class="px-1 pt-0 text-center card-footer px-lg-2">
                 </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                </div>
+                <div class="px-1 pt-0 text-center card-footer px-lg-2">
+                </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="top-0 oblique position-absolute h-100 d-md-block d-none">
                 <div
-                  class="bg-cover oblique-image position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6"
+                  class="bg-cover  h-100"
                   :style="{
                     backgroundImage:
                       'url(' +
-                      require('@/assets/img/curved-images/tractor-field.jpg') +
+                      require('@/assets/img/background/login.png') +
                       ')',
                   }"
                 ></div>
@@ -76,12 +86,13 @@ import SoftInput from "@/components/SoftInput.vue";
 import SoftSwitch from "@/components/SoftSwitch.vue";
 import SoftButton from "@/components/SoftButton.vue";
 import axios from "axios";
-import {mapMutations} from "vuex";
+// import {mapMutations} from "vuex";
+import {API_URL} from "../constant";
 import router from "@/router";
 import {notification} from 'ant-design-vue';
 import store from "../store";
 
-const body = document.getElementsByTagName("body")[0];
+// const body = document.getElementsByTagName("body")[0];
 
 export default {
   name: "SignIn",
@@ -100,23 +111,24 @@ export default {
       }
   },
   created() {
-    store.state.showNavbar = false;
-    store.state.showSidenav = false;
-    store.state.showFooter = false;
-    store.state.hideConfigButton = true;
-    body.classList.remove("bg-gray-100");
+    // store.state.showNavbar = false;
+    // store.state.showSidenav = false;
+    // store.state.showFooter = false;
+    // store.state.hideConfigButton = true;
+    // body.classList.remove("bg-gray-100");
+    // location.reload()
   },
   beforeUnmount() {
-      this.toggleEveryDisplay();
-      this.toggleHideConfig();
-      body.classList.add("bg-gray-100");
+      // this.toggleEveryDisplay();
+      // this.toggleHideConfig();
+      // body.classList.add("bg-gray-100");
   },
   methods: {
-    ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
+    // ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
     authentication() {
       if (this.loginVM.username !== "" && this.loginVM.password !== "") {
         console.log(this.loginVM.login);
-        axios.post('http://localhost:3030/api/auth/login', this.loginVM, {
+        axios.post(API_URL + 'auth/login', this.loginVM, {
           headers: {
             'Content-type': 'application/json',
             "Access-Control-Allow-Origin": "*",
@@ -132,22 +144,44 @@ export default {
           console.log(res)
           if (res.data.success) {
             store.commit("authenticated", res.data.data.user);
+            localStorage.clear();
             localStorage.setItem("lang","?lang=uz_lat")
+            localStorage.setItem("role",res.data.data.user.systemRoleName)
             notification.success({
               message: 'Siz tizimga muvaffaqiyatli kirdingiz !',
               duration: 2
             });
             const token = res.data.data.accessToken;
-            console.log(token)
-            router.push("/dashboard");
-
+            localStorage.setItem("expiry", res.data.data.accessTokenExpiry);
             if (this.rememberMe) {
-              console.log(this.rememberMe);
               localStorage.setItem("token", token);
             } else {
-              sessionStorage.setItem("token", token);
+              sessionStorage.setItem("expiry", res.data.data.accessTokenExpiry);
             }
-            store.state.hideConfigButton = true;
+            switch (res.data.data.user.systemRoleName){
+              case 'SYSTEM_ROLE_SUPER_ADMIN':
+                router.push("/dashboard-list");
+                break;
+              case 'LOGISTIC_ADMIN':
+                router.push("/references/techniques");
+                break;
+              case 'PURCHASE_ADMIN':
+                router.push("/purchase/add");
+                break;
+              case 'NASOS_ADMIN':
+                router.push("/nasos/list");
+                break;
+              case 'PRODUCE_ADMIN':
+                router.push("/produce/ready-products");
+                break;
+            }
+
+
+            setTimeout(() => {
+              location.reload();
+            }, "500");
+
+            // store.state.hideConfigButton = true;
             // this.toggleEveryDisplay();
             // this.toggleHideConfig();
           } else {
@@ -169,3 +203,10 @@ export default {
   }
 };
 </script>
+<style>
+
+#main {
+  background-color: #FFFFFF;
+
+}
+</style>

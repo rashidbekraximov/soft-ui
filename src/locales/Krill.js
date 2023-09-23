@@ -1,4 +1,4 @@
 export const UzbKrill = {
-    mtp: "ЧСМ МЧЖ",
+    mtp: "СТАРК",
     season: "Мавсум"
 }

@@ -1,5 +1,4 @@
 export const Rus = {
-    mtp: "ООО ЧСМ",
-
+    mtp: "СТАРК",
     season: "Сезон"
 }

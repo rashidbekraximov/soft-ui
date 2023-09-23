@@ -2,65 +2,125 @@
   <div
       class="w-auto h-auto collapse navbar-collapse max-height-vh-100 h-100"
       id="sidenav-collapse-main"
+      style="overflow: hidden;"
   >
-
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <sidenav-collapse nav-text="Dashboard" :to="{ name: 'Dashboard' }">
-          <template #icon>
-            <office/>
-          </template>
-        </sidenav-collapse>
-      </li>
-      <li class="nav-item">
+<!--      <li class="nav-item">-->
+<!--        <sidenav-collapse nav-text="Dashboard" :to="{ name: 'Dashboard' }">-->
+<!--          <template #icon>-->
+<!--            <office/>-->
+<!--          </template>-->
+<!--        </sidenav-collapse>-->
+<!--      </li>-->
+      <li class="nav-item" v-if="purchases.length > 0">
         <sidenav-collapse data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="true"
-                          aria-controls="collapseExample" nav-text="Forma" :to="{ name: 'Billing' }">
+                          aria-controls="collapseExample" nav-text="Sotish" :to="{ name: 'Billing' }">
           <template #icon>
-            <office/>
+            <shop/>
           </template>
         </sidenav-collapse>
-        <div class="collapse mt-1 mx-4" id="collapseExample">
+        <div class="collapse mt-1 mx-4" id="collapseExample" @mouseleave="mouseLeaveArea('collapseExample')">
           <div style="background-color:#FFFFFF; border-radius: 10px;">
-            <div v-for="(form2,index) in forms" v-bind:key="index" class="m-1">
-              <router-link class="p-2" :to="form2.hrefAddress">{{ form2.orderNumber}}.{{ form2.name.activeLanguage }}</router-link>
+            <div v-for="(purchase,index) in purchases" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="purchase.hrefAddress">{{index+1}}.{{ purchase.name.activeLanguage }}</router-link>
             </div>
           </div>
         </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="logistics.length > 0">
         <sidenav-collapse data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="true"
-                          aria-controls="collapseExample2"  navText="Hisobot" :to="{ name: 'Tables' }">
+                          aria-controls="collapseExample2"  navText="Logistika" :to="{ name: 'Tables' }">
           <template #icon>
-            <office/>
+            <switches />
           </template>
         </sidenav-collapse>
-        <div class="collapse  mt-1 mx-4" id="collapseExample2">
+        <div class="collapse mt-1 mx-4" id="collapseExample2" @mouseleave="mouseLeaveArea('collapseExample2')">
           <div  style="background-color:#FFFFFF; border-radius: 10px;">
-            <div v-for="(report,index) in reports" v-bind:key="index" class="m-1">
-              <router-link class="p-2" :to="report.hrefAddress">{{ report.orderNumber}}.{{ report.name.activeLanguage }}</router-link>
+            <div v-for="(logistic,index) in logistics" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="logistic.hrefAddress">{{index+1}}.{{ logistic.name.activeLanguage }}</router-link>
             </div>
           </div>
         </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" v-if="producusers.length > 0">
         <sidenav-collapse data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="true"
-                          aria-controls="collapseExample3"  navText="Malumotlar" :to="{ name: 'Tables' }">
+                          aria-controls="collapseExample3"  navText="Ishlab chiqarish" :to="{ name: 'Tables' }">
+          <template #icon>
+            <basket/>
+          </template>
+        </sidenav-collapse>
+        <div class="collapse mt-1 mx-4" id="collapseExample3" @mouseleave="mouseLeaveArea('collapseExample3')">
+          <div style="background-color:#FFFFFF; border-radius: 10px;">
+            <div v-for="(producuser,index) in producusers" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="producuser.hrefAddress">{{index+1}}.{{ producuser.name.activeLanguage}}</router-link>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item" v-if="leaderBetons.length > 0">
+        <sidenav-collapse data-bs-toggle="collapse" data-bs-target="#collapseExample4" aria-expanded="true"
+                          aria-controls="collapseExample4"  navText="Leader Beton" :to="{ name: 'Tables' }">
           <template #icon>
             <office/>
           </template>
         </sidenav-collapse>
-        <div class="collapse mt-1 mx-4" id="collapseExample3">
+        <div class="collapse mt-1 mx-4" id="collapseExample4" @mouseleave="mouseLeaveArea('collapseExample4')">
           <div style="background-color:#FFFFFF; border-radius: 10px;">
-            <div v-for="(information,index) in informations" v-bind:key="index" class="m-1">
-              <router-link class="p-2" :to="information.hrefAddress">{{ information.orderNumber}}.{{ information.name.activeLanguage}}</router-link>
+            <div v-for="(leaderBeton,index) in leaderBetons" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="leaderBeton.hrefAddress">{{index+1}}.{{ leaderBeton.name.activeLanguage}}</router-link>
             </div>
           </div>
         </div>
       </li>
-      <li class="nav-item">
-        <sidenav-collapse navText="Admin Panel" :to="{ name: 'Profile' }">
+      <li class="nav-item" v-if="nasos.length > 0">
+        <sidenav-collapse data-bs-toggle="collapse" data-bs-target="#collapseExample5" aria-expanded="true"
+                          aria-controls="collapseExample5"  navText="Nasos" :to="{ name: 'Tables' }">
           <template #icon>
             <office/>
+          </template>
+        </sidenav-collapse>
+        <div class="collapse mt-1 mx-4" id="collapseExample5" @mouseleave="mouseLeaveArea('collapseExample5')">
+          <div style="background-color:#FFFFFF; border-radius: 10px;">
+            <div v-for="(n,index) in nasos" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="n.hrefAddress">{{index+1}}.{{ n.name.activeLanguage}}</router-link>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item" v-if="wages.length > 0">
+        <sidenav-collapse data-bs-toggle="collapse" data-bs-target="#collapseExample6" aria-expanded="true"
+                          aria-controls="collapseExample6"  navText="Ish haqi" :to="{ name: 'Tables' }">
+          <template #icon>
+            <document/>
+          </template>
+        </sidenav-collapse>
+        <div class="collapse mt-1 mx-4" id="collapseExample6" @mouseleave="mouseLeaveArea('collapseExample6')">
+          <div style="background-color:#FFFFFF; border-radius: 10px;">
+            <div v-for="(wage,index) in wages" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="wage.hrefAddress">{{index + 1}}.{{ wage.name.activeLanguage}}</router-link>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item" v-if="allInformations.length > 0">
+        <sidenav-collapse data-bs-toggle="collapse" data-bs-target="#collapseExample7" aria-expanded="true"
+                          aria-controls="collapseExample7"  navText="Umumiy ma'lumot" :to="{ name: 'Tables' }">
+          <template #icon>
+            <document/>
+          </template>
+        </sidenav-collapse>
+        <div class="collapse mt-1 mx-4" id="collapseExample7" @mouseleave="mouseLeaveArea('collapseExample7')">
+          <div style="background-color:#FFFFFF; border-radius: 10px;">
+            <div v-for="(all,index) in allInformations" v-bind:key="index" class="m-1">
+              <router-link class="p-2" :to="all.hrefAddress">{{index + 1}}.{{ all.name.activeLanguage}}</router-link>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item" v-if="allForms.length > 7">
+        <sidenav-collapse navText="Admin Panel" :to="{ name: adminPanel == null ? '' : 'Profile' }">
+          <template #icon>
+            <setting-outlined/>
           </template>
         </sidenav-collapse>
       </li>
@@ -69,11 +129,15 @@
 </template>
 <script>
 import SidenavCollapse from "./SidenavCollapse.vue";
-// import Shop from "../../components/Icon/Shop.vue";
+import Shop from "../../components/Icon/Shop.vue";
 import Office from "../../components/Icon/Office.vue";
 // import CreditCard from "../../components/Icon/CreditCard.vue";
 // import CustomerSupport from "../../components/Icon/CustomerSupport.vue";
-// import Document from "../../components/Icon/Document.vue";
+import Document from "../../components/Icon/Document.vue";
+import SettingOutlined from "../../components/Icon/Settings.vue";
+// import Lights from "../../components/Icon/Lights";
+import Switches from "../../components/Icon/Switches";
+import Basket from "../../components/Icon/Basket";
 // import Spaceship from "../../components/Icon/Spaceship.vue";
 // import { MailOutlined} from '@ant-design/icons-vue';
 
@@ -88,22 +152,28 @@ export default {
       controls: "dashboardsExamples",
       isActive: "active",
       allForms: [],
-      forms: [],
-      reports: [],
-      informations: [],
+      allInformations: [],
+      purchases: [],
+      logistics: [],
+      leaderBetons: [],
+      nasos: [],
+      wages: [],
+      producusers: [],
       adminPanel:{}
     };
   },
   components: {
+    Switches,
+    // Lights,
     // MailOutlined,
     // AppstoreOutlined,
-    // SettingOutlined,
+    SettingOutlined,
     SidenavCollapse,
-    // Shop,
+    Shop,
     Office,
-    // CreditCard,
+    Basket,
     // CustomerSupport,
-    // Document,
+    Document,
     // Spaceship,
   },
   methods: {
@@ -112,15 +182,29 @@ export default {
       return routeArr[1];
     },
 
+    mouseLeaveArea(id){
+        const test = document.getElementById(id);
+        test.className = test.className.substring(1,19);
+    },
     getFormList() {
-      this.$http.get("menu-system" + localStorage.getItem("lang")).then(res => {
-        console.log(res.data)
-        this.allForms = res.data
-        this.forms = res.data[0].childForms;
-        this.reports = res.data[1].childForms;
-        this.informations = res.data[2].childForms;
-        this.adminPanel = res.data[3];
-      })
+      if (localStorage.getItem("lang") !== null){
+        this.$http.get("menu-system" + localStorage.getItem("lang")).then(res => {
+          console.log(res.data)
+          if (res.status === 200) {
+            this.allForms = res.data
+            console.log(res.data)
+            this.purchases = res.data[0].childForms;
+            this.logistics = res.data[1].childForms;
+            this.producusers = res.data[2].childForms;
+            this.leaderBetons = res.data[3].childForms;
+            this.nasos = res.data[4].childForms;
+            this.wages = res.data[5].childForms;
+            this.allInformations = res.data[6].childForms;
+            this.adminPanel = res.data[7];
+            // location.reload()
+          }
+        })
+      }
     },
   },
 
@@ -144,13 +228,5 @@ export default {
   color: #6F7496;
   font-weight: 700;
   margin-top: 10px;
-}
-/*.m-1 .p-2:hover {*/
-/*  background-color: #F8F9FA;*/
-/*}*/
-
-
-router-link {
-
 }
 </style>

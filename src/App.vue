@@ -1,5 +1,8 @@
 <template>
+  <div v-if="id === 1 ">
+
     <sidenav
+        class=""
         :custom_class="this.$store.state.mcolor"
         :class="[
       this.$store.state.isTransparent,
@@ -9,14 +12,12 @@
     />
     <main
         class=" main-content position-relative max-height-vh-100 h-100 border-radius-lg"
-        :style="this.$store.state.isRTL ? 'overflow-x: hidden' : ''"
     >
-      <!-- nav -->
       <navbar
-              :class="[navClasses, this.$store.state.navColor]"
-              :textWhite="this.$store.state.isAbsolute ? 'text-white opacity-8' : ''"
-              :minNav="navbarMinimize"
-              v-if="this.$store.state.showNavbar"
+          :class="[navClasses, this.$store.state.navColor]"
+          :textWhite="this.$store.state.isAbsolute ? 'text-white opacity-8' : ''"
+          :minNav="navbarMinimize"
+          v-if="this.$store.state.showNavbar"
       />
       <router-view/>
       <app-footer v-show="this.$store.state.showFooter" />
@@ -28,9 +29,16 @@
       ]"
       />
     </main>
+
+  </div>
+  <div v-else>
+    <sign-in></sign-in>
+  </div>
+<!--  <router-link to="/login"></router-link>-->
 </template>
 <script>
 import Sidenav from "./examples/Sidenav";
+import SignIn from "@/views/SignIn.vue";
 import Configurator from "@/examples/Configurator.vue";
 import Navbar from "@/examples/Navbars/Navbar.vue";
 import AppFooter from "@/examples/Footer.vue";
@@ -39,19 +47,18 @@ export default {
   name: "App",
   components: {
     Sidenav,
+    SignIn,
     Configurator,
     Navbar,
     AppFooter,
   },
   data(){
     return{
+      id: 0,
     }
   },
   methods: {
     ...mapMutations(["toggleConfigurator", "navbarMinimize"]),
-    getActiveProject(){
-      this.project = parseInt(localStorage.getItem("project"));
-    }
   },
   computed: {
     navClasses() {
@@ -68,7 +75,16 @@ export default {
     this.$store.state.isTransparent = "bg-transparent";
   },
   created() {
-    this.getActiveProject();
+    if (localStorage.getItem("lang") !== null){
+      this.id = 1;
+    }else {
+      this.id = 0;
+    }
   }
 };
 </script>
+<style>
+body {
+  overflow-x: hidden;
+}
+</style>
